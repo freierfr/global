@@ -8,10 +8,10 @@ terraform {
   }
 
   backend "azurerm" {
-      resource_group_name  = "tfstate"
-      storage_account_name = "tfstatefreier"
-      container_name       = "tfstate"
-      key                  = "terraform.tfstate"
+    resource_group_name  = "tfstate"
+    storage_account_name = "tfstatefreier"
+    container_name       = "tfstate"
+    key                  = "terraform.tfstate"
   }
 
   required_version = ">= 1.1.0"

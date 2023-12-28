@@ -15,10 +15,19 @@ resource "azurerm_storage_account" "marvin_dev_storage_account" {
   account_replication_type = "LRS"
 }
 
+resource "azurerm_log_analytics_workspace" "marvin_dev_log_analytics_workspace" {
+  name                = "marvin-${var.env}-log-analytics-workspace"
+  location            = azurerm_resource_group.marvin_dev_rg.location
+  resource_group_name = azurerm_resource_group.marvin_dev_rg.name
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+}
+
 resource "azurerm_application_insights" "marvin_dev_application_insights" {
   name                = "marvin-${var.env}-application-insights"
-  location            = var.location
+  location            = azurerm_resource_group.marvin_dev_rg.location
   resource_group_name = azurerm_resource_group.marvin_dev_rg.name
+  workspace_id        = azurerm_log_analytics_workspace.marvin_dev_log_analytics_workspace.id
   application_type    = "other"
 }
 

@@ -50,13 +50,16 @@ resource "azurerm_linux_function_app" "marvin_dev_function_app" {
 
   app_settings = {
     "WEBSITE_RUN_FROM_PACKAGE"  = "",
-    "OPENAI_MODEL"              = "gpt-4",
+    "OPENAI_MODEL"              = "gpt-4-1106-preview",
     "WEBHOOK_URL"               = "https://marvin-dev.stumpy.fr/api/telegram"
     "OPENAI_API_KEY"            = var.OPENAI_API_KEY,
     "TELEGRAM_TOKEN"            = var.TELEGRAM_TOKEN,
     "BOT_PROMPT"                = "You are a helpful assistant and your name is Marvin",
     "ALLOWED_TELEGRAM_USER_IDS" = var.ALLOWED_TELEGRAM_USER_IDS,
     "GROUP_TRIGGER_KEYWORD"     = "marvin",
+    "REDIS_HOST"                = var.REDIS_HOST,
+    "REDIS_LOGIN"               = var.REDIS_LOGIN,
+    "REDIS_PASSWORD"            = var.REDIS_PASSWORD,
   }
 
   lifecycle {

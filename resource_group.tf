@@ -1,19 +1,19 @@
 resource "azurerm_resource_group" "global" {
   name     = "global"
-  location = "westeurope"
+  location = var.location
 
   tags = {
-    environment = "dev"
+    environment = var.env
     team        = "DevOps"
   }
 }
 
 resource "azurerm_resource_group" "rg" {
   name     = "test_terraform"
-  location = "westeurope"
+  location = var.location
 
   tags = {
-    environment = "dev"
+    environment = var.env
     team        = "DevOps"
   }
 }

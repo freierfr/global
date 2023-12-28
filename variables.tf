@@ -1,3 +1,7 @@
-variable "env_name" {
+variable "env" {
   default = "dev"
+}
+
+variable "location" {
+  default = "westeurope"
 }

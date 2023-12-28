@@ -17,12 +17,12 @@ resource "azuread_service_principal_password" "app" {
 }
 
 # Output the Service Principal and password
-output "sp" {
-  value     = azuread_service_principal.app.id
-  sensitive = true
-}
+# output "sp" {
+#   value     = azuread_service_principal.app.id
+#   sensitive = true
+# }
 
-output "sp_password" {
-  value     = azuread_service_principal_password.app.value
-  sensitive = true
-}
+# output "sp_password" {
+#   value     = azuread_service_principal_password.app.value
+#   sensitive = true
+# }

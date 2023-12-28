@@ -17,7 +17,7 @@ resource "azurerm_storage_container" "example" {
 }
 
 resource "azurerm_role_assignment" "example" {
-  scope              = azurerm_storage_account.example.id
+  scope                = azurerm_storage_account.example.id
   role_definition_name = "Storage Blob Data Reader"
-  principal_id       = azuread_service_principal.app.object_id
+  principal_id         = azuread_service_principal.app.object_id
 }

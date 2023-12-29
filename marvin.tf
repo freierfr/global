@@ -74,39 +74,39 @@ resource "azurerm_linux_function_app" "marvin_dev_function_app" {
   }
 }
 
-resource "azurerm_key_vault" "marvin_dev_keyvault" {
-  name                        = "marvin-${var.env}-key-vault"
-  location                    = azurerm_resource_group.marvin_dev_rg.location
-  resource_group_name         = azurerm_resource_group.marvin_dev_rg.name
-  enabled_for_disk_encryption = true
-  tenant_id                   = data.azurerm_client_config.current.tenant_id
-  soft_delete_retention_days  = 7
-  purge_protection_enabled    = false
+# resource "azurerm_key_vault" "marvin_dev_keyvault" {
+#   name                        = "marvin-${var.env}-key-vault"
+#   location                    = azurerm_resource_group.marvin_dev_rg.location
+#   resource_group_name         = azurerm_resource_group.marvin_dev_rg.name
+#   enabled_for_disk_encryption = true
+#   tenant_id                   = data.azurerm_client_config.current.tenant_id
+#   soft_delete_retention_days  = 7
+#   purge_protection_enabled    = false
 
-  sku_name = "standard"
-}
+#   sku_name = "standard"
+# }
 
-resource "azurerm_key_vault_access_policy" "marvin_dev_keyvault_access_policy" {
-  key_vault_id = azurerm_key_vault.marvin_dev_keyvault.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = data.azuread_client_config.current.object_id
+# resource "azurerm_key_vault_access_policy" "marvin_dev_keyvault_access_policy" {
+#   key_vault_id = azurerm_key_vault.marvin_dev_keyvault.id
+#   tenant_id    = data.azurerm_client_config.current.tenant_id
+#   object_id    = data.azuread_client_config.current.object_id
 
-  secret_permissions = [
-    "Get", "List", "Delete", "Recover", "Backup", "Restore", "Set",
-  ]
-}
+#   secret_permissions = [
+#     "Get", "List", "Delete", "Recover", "Backup", "Restore", "Set",
+#   ]
+# }
 
-resource "azurerm_key_vault_secret" "marvin_dev_secret_redis_login" {
-  name         = "redis-login"
-  value        = "default"
-  key_vault_id = azurerm_key_vault.marvin_dev_keyvault.id
-}
+# resource "azurerm_key_vault_secret" "marvin_dev_secret_redis_login" {
+#   name         = "redis-login"
+#   value        = "default"
+#   key_vault_id = azurerm_key_vault.marvin_dev_keyvault.id
+# }
 
-resource "azurerm_key_vault_secret" "marvin_dev_secret_redis_password" {
-  name         = "redis-password"
-  value        = var.REDIS_PASSWORD
-  key_vault_id = azurerm_key_vault.marvin_dev_keyvault.id
-}
+# resource "azurerm_key_vault_secret" "marvin_dev_secret_redis_password" {
+#   name         = "redis-password"
+#   value        = var.REDIS_PASSWORD
+#   key_vault_id = azurerm_key_vault.marvin_dev_keyvault.id
+# }
 
 resource "azurerm_app_service_custom_hostname_binding" "marvin_dev_custom_domain" {
   hostname            = "marvin-${var.env}.stumpy.fr"

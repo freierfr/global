@@ -16,8 +16,8 @@ resource "azurerm_storage_container" "example" {
   container_access_type = "private"
 }
 
-resource "azurerm_role_assignment" "example" {
-  scope                = azurerm_storage_account.example.id
-  role_definition_name = "Storage Blob Data Reader"
-  principal_id         = azuread_service_principal.app.object_id
-}
+# resource "azurerm_role_assignment" "example" {
+#   scope                = azurerm_storage_account.example.id
+#   role_definition_name = "Storage Blob Data Reader"
+#   principal_id         = azuread_service_principal.app.object_id
+# }

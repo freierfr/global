@@ -55,7 +55,7 @@ resource "azurerm_linux_function_app" "marvin_dev_function_app" {
     "OPENAI_API_KEY"            = var.OPENAI_API_KEY,
     "TELEGRAM_TOKEN"            = var.TELEGRAM_TOKEN,
     "BOT_PROMPT"                = "You are a helpful assistant and your name is Marvin",
-    "ALLOWED_TELEGRAM_USER_IDS" = var.ALLOWED_TELEGRAM_USER_IDS,
+    "ALLOWED_TELEGRAM_USER_IDS" = join(",", data.terraform_remote_state.google_workspace.outputs.telegram_user_ids),
     "GROUP_TRIGGER_KEYWORD"     = "marvin",
     "REDIS_HOST"                = var.REDIS_HOST,
     "REDIS_LOGIN"               = var.REDIS_LOGIN,

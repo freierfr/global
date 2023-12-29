@@ -1,0 +1,93 @@
+name: Deploy Infrastructure
+
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  setup:
+    name: Setup
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v1
+
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: JSON Parse
+      id: parse
+      env:
+        AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+      run: |
+        ARM_CLIENT_ID=$(echo $AZURE_CREDENTIALS | jq -r '.["clientId"]')
+        ARM_CLIENT_SECRET=$(echo $AZURE_CREDENTIALS | jq -r '.["clientSecret"]')
+        ARM_TENANT_ID=$(echo $AZURE_CREDENTIALS | jq -r '.["tenantId"]')
+        ARM_SUBSCRIPTION_ID=$(echo $AZURE_CREDENTIALS | jq -r '.["subscriptionId"]')
+        echo ARM_CLIENT_ID=$ARM_CLIENT_ID >> $GITHUB_ENV
+        echo ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET >> $GITHUB_ENV
+        echo ARM_TENANT_ID=$ARM_TENANT_ID >> $GITHUB_ENV
+        echo ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID >> $GITHUB_ENV
+    
+    - name: Terraform Install
+      uses: hashicorp/setup-terraform@v3
+
+    - run: terraform init
+      id: init
+
+    - name: Terraform fmt
+      id: fmt
+      run: |
+        terraform fmt -check
+      continue-on-error: true
+
+    # - name: Terraform Validate
+    #   uses: hashicorp/terraform-github-actions/validate@v0.3.7
+
+    - name: Plan
+      id: plan
+      run: terraform plan -no-color -out "tfplan"
+      continue-on-error: true
+
+    - uses: actions/github-script@v6
+      if: github.event_name == 'pull_request'
+      env:
+        PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+          #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+    
+          #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+    
+          <details><summary>Show Plan</summary>
+    
+          \`\`\`\n
+          ${process.env.PLAN}
+          \`\`\`
+    
+          </details>
+    
+          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+    
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: output
+          })
+
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/main'
+      run: terraform apply "tfplan"

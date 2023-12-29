@@ -6,9 +6,9 @@ variable "TELEGRAM_TOKEN" {
   type = string
 }
 
-variable "ALLOWED_TELEGRAM_USER_IDS" {
-  type = string
-}
+# variable "ALLOWED_TELEGRAM_USER_IDS" {
+#   type = string
+# }
 
 variable "REDIS_HOST" {
   type = string

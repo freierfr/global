@@ -91,10 +91,6 @@ resource "azurerm_key_vault_access_policy" "marvin_dev_keyvault_access_policy" {
   tenant_id    = data.azurerm_client_config.current.tenant_id
   object_id    = data.azuread_client_config.current.object_id
 
-  #   key_permissions = [
-  #     "Get",
-  #   ]
-
   secret_permissions = [
     "Get", "List", "Delete", "Recover", "Backup", "Restore", "Set",
   ]

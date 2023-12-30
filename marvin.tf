@@ -49,6 +49,7 @@ resource "azurerm_linux_function_app" "marvin_dev_function_app" {
   service_plan_id            = azurerm_service_plan.marvin_dev_service_plan.id
 
   app_settings = {
+    "WEBSITE_MOUNT_ENABLED"     = "1",
     "WEBSITE_RUN_FROM_PACKAGE"  = "",
     "OPENAI_MODEL"              = "gpt-4-1106-preview",
     "WEBHOOK_URL"               = "https://marvin-dev.stumpy.fr/api/telegram"

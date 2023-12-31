@@ -25,19 +25,11 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    # - name: set variables
-    #   env:
-    #     TF_VAR_OPENAI_API_KEY: ${{ secrets.TF_VAR_OPENAI_API_KEY }}
-    #     TF_VAR_REDIS_HOST: ${{ secrets.TF_VAR_REDIS_HOST }}
-    #     TF_VAR_REDIS_PASSWORD: ${{ secrets.TF_VAR_REDIS_PASSWORD }}
-    #     TF_VAR_REDIS_LOGIN: ${{ secrets.TF_VAR_REDIS_LOGIN }}
-    #     TF_VAR_TELEGRAM_TOKEN: ${{ secrets.TF_VAR_TELEGRAM_TOKEN }}
-    #   run: |
-    #     echo TF_VAR_OPENAI_API_KEY=$TF_VAR_OPENAI_API_KEY >> $GITHUB_ENV
-    #     echo TF_VAR_REDIS_HOST=$TF_VAR_REDIS_HOST >> $GITHUB_ENV
-    #     echo TF_VAR_REDIS_PASSWORD=$TF_VAR_REDIS_PASSWORD >> $GITHUB_ENV
-    #     echo TF_VAR_REDIS_LOGIN=$TF_VAR_REDIS_LOGIN >> $GITHUB_ENV
-    #     echo TF_VAR_TELEGRAM_TOKEN=$TF_VAR_TELEGRAM_TOKEN >> $GITHUB_ENV
+    - name: set variables
+      env:
+        TF_VAR_CLOUDFLARE_API_TOKEN=: ${{ secrets.TF_VAR_CLOUDFLARE_API_TOKEN= }}
+      run: |
+        echo TF_VAR_CLOUDFLARE_API_TOKEN=$TF_VAR_CLOUDFLARE_API_TOKEN >> $GITHUB_ENV
 
     - name: JSON Parse
       id: parse

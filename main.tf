@@ -40,3 +40,7 @@ data "terraform_remote_state" "google_workspace" {
 data "azuread_client_config" "current" {}
 
 data "azurerm_client_config" "current" {}
+
+module "global" {
+  source = "./global"
+}

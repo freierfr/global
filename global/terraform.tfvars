@@ -1,0 +1,2 @@
+env      = "prd"
+location = "westeurope"

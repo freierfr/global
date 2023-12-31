@@ -11,7 +11,7 @@ terraform {
     resource_group_name  = "tfstate"
     storage_account_name = "tfstatefreier"
     container_name       = "tfstate"
-    key                  = "terraform.tfstate"
+    key                  = "global.tfstate"
   }
 
   required_version = ">= 1.1.0"

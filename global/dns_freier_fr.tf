@@ -27,8 +27,16 @@ locals {
     ["freier.fr", "v=spf1 ~all"],
     ["_dmarc", "v=DMARC1;  p=none; rua=mailto:4e54b8f55216439085be374484c57839@dmarc-reports.cloudflare.net"],
     ["freier.fr", "MS=ms30866331"],
-    ["_atproto.niels", "did=did:plc:5n3idnmeewspobgm6unjby37"],
+    # ["_atproto.niels", "did=did:plc:5n3idnmeewspobgm6unjby37"],
   ]
+}
+
+resource "cloudflare_record" "freier_TXT_bluesky" {
+  count   = length(var.bluesky_users)
+  zone_id = data.cloudflare_zone.freier_fr.id
+  name    = "_atproto.${var.bluesky_users[count.index][0]}"
+  value   = var.bluesky_users[count.index][1]
+  type    = "TXT"
 }
 
 locals {

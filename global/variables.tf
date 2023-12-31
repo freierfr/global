@@ -5,3 +5,5 @@ variable "env" {
 variable "location" {
   default = "westeurope"
 }
+
+variable "bluesky_users" {}

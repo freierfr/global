@@ -34,16 +34,16 @@ provider "cloudflare" {
   api_token = var.CLOUDFLARE_API_TOKEN
 }
 
-# data "terraform_remote_state" "google_workspace" {
-#   backend = "azurerm"
+data "terraform_remote_state" "google_workspace" {
+  backend = "azurerm"
 
-#   config = {
-#     resource_group_name  = "tfstate"
-#     storage_account_name = "tfstatefreier"
-#     container_name       = "tfstate"
-#     key                  = "terraform_google_workspace.tfstate"
-#   }
-# }
+  config = {
+    resource_group_name  = "tfstate"
+    storage_account_name = "tfstatefreier"
+    container_name       = "tfstate"
+    key                  = "terraform_google_workspace.tfstate"
+  }
+}
 
 # data "azuread_client_config" "current" {}
 
@@ -51,4 +51,6 @@ provider "cloudflare" {
 
 module "global" {
   source = "./global"
+
+  bluesky_users = data.terraform_remote_state.google_workspace.outputs.bluesky_users
 }

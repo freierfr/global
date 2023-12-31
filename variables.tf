@@ -1,4 +1,4 @@
 variable "CLOUDFLARE_API_TOKEN" {
-  type = string
+  type      = string
   sensitive = true
 }

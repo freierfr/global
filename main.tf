@@ -1,11 +1,15 @@
-# Configure the Azure provider
 terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
       version = "~> 3.85.0"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 4.21"
+    }
   }
+
 
   backend "azurerm" {
     resource_group_name  = "tfstate"
@@ -26,20 +30,24 @@ provider "azurerm" {
   }
 }
 
-data "terraform_remote_state" "google_workspace" {
-  backend = "azurerm"
-
-  config = {
-    resource_group_name  = "tfstate"
-    storage_account_name = "tfstatefreier"
-    container_name       = "tfstate"
-    key                  = "terraform_google_workspace.tfstate"
-  }
+provider "cloudflare" {
+  api_token = var.CLOUDFLARE_API_TOKEN
 }
 
-data "azuread_client_config" "current" {}
+# data "terraform_remote_state" "google_workspace" {
+#   backend = "azurerm"
 
-data "azurerm_client_config" "current" {}
+#   config = {
+#     resource_group_name  = "tfstate"
+#     storage_account_name = "tfstatefreier"
+#     container_name       = "tfstate"
+#     key                  = "terraform_google_workspace.tfstate"
+#   }
+# }
+
+# data "azuread_client_config" "current" {}
+
+# data "azurerm_client_config" "current" {}
 
 module "global" {
   source = "./global"

@@ -43,6 +43,7 @@ locals {
     ["googleed45bd58e1042e7c", "google.com.", 10800, true],
     ["christoph.freier.fr.", "kawameicha.github.io", 10800, false],
     ["niels", "stumpyfr.github.io", 10800, false],
+    ["www.niels", "stumpyfr.github.io", 10800, false],
   ]
 }
 

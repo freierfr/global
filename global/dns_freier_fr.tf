@@ -24,6 +24,7 @@ locals {
 
 locals {
   stumpy_TXT = [
+    ["niels.freier.fr", "v=spf1 ~all"],
     ["freier.fr", "v=spf1 ~all"],
     ["_dmarc", "v=DMARC1;  p=none; rua=mailto:4e54b8f55216439085be374484c57839@dmarc-reports.cloudflare.net"],
     ["freier.fr", "MS=ms30866331"],

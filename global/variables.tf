@@ -1,13 +1,17 @@
 variable "env" {
-  type = string
+  type    = string
   default = "prd"
 }
 
 variable "location" {
-  type = string
+  type    = string
   default = "westeurope"
 }
 
 variable "bluesky_users" {
   type = list(list(string))
 }
+
+variable "google_users" {
+}
+

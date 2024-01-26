@@ -19,7 +19,8 @@ locals {
   akhmadova_TXT = [
     ["akhmadova.fr", "v=spf1 ~all"],
     ["akhmadova.fr", "google-site-verification=Jdn75h5Y7Ca24__vH6a03eeheeHKKIsbnsHlfnaTsiE"],
-    ["_dmarc", "v=DMARC1; p=none; rua=mailto:5b734b2579934a38b93a3adf9f7129e5@dmarc-reports.cloudflare.net"]
+    ["_dmarc", "v=DMARC1; p=none; rua=mailto:5b734b2579934a38b93a3adf9f7129e5@dmarc-reports.cloudflare.net"],
+    ["akhmadova.fr", "MS=ms54733985"],
   ]
 }
 

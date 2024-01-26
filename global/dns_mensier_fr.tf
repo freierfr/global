@@ -19,7 +19,8 @@ locals {
   mensier_TXT = [
     ["mensier.fr", "v=spf1 ~all"],
     ["mensier.fr", "google-site-verification=DtTuQEFu86eQNF-wIvGbnGn8Xj0Dpnns_aXvkbB4aHo"],
-    ["_dmarc", "v=DMARC1; p=none; rua=mailto:c19178e85cb04bbca11af1a86736134b@dmarc-reports.cloudflare.net"]
+    ["_dmarc", "v=DMARC1; p=none; rua=mailto:c19178e85cb04bbca11af1a86736134b@dmarc-reports.cloudflare.net"],
+    ["mensier.fr", "MS=ms86643137"],
   ]
 }
 

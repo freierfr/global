@@ -52,5 +52,6 @@ data "terraform_remote_state" "google_workspace" {
 module "global" {
   source = "./global"
 
+  google_users = data.terraform_remote_state.google_workspace.outputs.users
   bluesky_users = data.terraform_remote_state.google_workspace.outputs.bluesky_users
 }

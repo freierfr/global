@@ -20,6 +20,7 @@ resource "azuread_user" "users" {
   mail                  = local.azure_users_filtered[count.index].primary_email
   password              = random_password.pwd.result
   force_password_change = true
+  other_mails           = [local.azure_users_filtered[count.index].primary_email]
 
   lifecycle {
     ignore_changes = [
